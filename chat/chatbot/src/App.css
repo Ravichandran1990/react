@@ -1,0 +1,93 @@
+#chatContainer{
+  display: flex;
+  flex-direction: column;
+  padding-left:0;
+  margin:0;
+  list-style-type:none;
+  min-height: 35px;
+  overflow-y: auto;
+  max-height: 450px;
+  border-top:2px solid #fff;
+  border-bottom:2px solid #fff;
+}
+.scrollContainer::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+	background-color: #F5F5F5;
+	border-radius: 10px;
+}
+
+.scrollContainer::-webkit-scrollbar
+{
+	width: 4px;
+	background-color: #F5F5F5;
+}
+
+.scrollContainer::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: #FFF;
+	background-image: -webkit-gradient(linear,
+									   40% 0%,
+									   75% 84%,
+									   from(#4D9C41),
+									   to(#19911D),
+									   color-stop(.6,#54DE5D))
+}
+#chatContainer li{
+  padding:10px 30px;
+}
+#chatContainer h2,#chatContainer h3{
+  display:inline-block;
+  font-size:13px;
+  font-weight:normal;
+  margin: 0;
+}
+#chatContainer h3{
+  color:#bbb;
+}
+#chatContainer .entete{
+  margin-bottom:5px;
+}
+#chatContainer .message{
+  padding:12px;
+  color:#fff;
+  line-height:25px;
+  max-width:90%;
+  display:inline-block;
+  text-align:left;
+  border-radius:5px;
+}
+#chatContainer .me{
+  text-align:right;
+}
+#chatContainer .you .message{
+  background: rgb(2,0,36);
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, #720979 35%, rgba(0,212,255,1) 100%);
+}
+#chatContainer .me .message{
+  background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgb(2 0 36 / 79%) 0%, rgb(34 121 9 / 82%) 35%, rgb(0 212 255 / 59%) 100%);
+}
+#chatContainer .triangle{
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 10px 10px 10px;
+}
+#chatContainer .you .triangle{
+    border-color: transparent transparent #720979 transparent;
+    margin-left:15px;
+}
+#chatContainer .me .triangle{
+    border-color: transparent transparent #6fbced transparent;
+    margin-left: calc(100% - 30px);
+}
+.roomList {
+  min-height: 50px;
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: 1px 1px 9px 3px #4caf50;
+  padding-left: 17px;
+}
