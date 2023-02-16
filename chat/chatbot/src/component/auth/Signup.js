@@ -1,24 +1,31 @@
 import React, { useState, useContext } from 'react';
 import { UserContext } from '../../UserContext';
 import {Navigate } from 'react-router-dom'
+import { URL } from '../../config';
 
 const Signup = () => {
     const {setUser, user} = useContext(UserContext);
     const [name, setName] = useState(null);
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
+    const [emailError, setEmailError] = useState(null);
     const signupSubmit = (e) => {
         e.preventDefault();
-        fetch('http://localhost:5000/signup',{
+        fetch(URL+'signup',{
             credentials:'include',
             method:"POST",
             body: JSON.stringify({name, email, password}),
             headers: {'Content-type': 'application/json'}
         }).then((result) => result.json()).then((data) => {
             console.log("Sign Up Data "+data);
-            setUser(data.user);
+            if(data.error){
+                setEmailError(data?.error); 
+            }else {
+                setUser(data.user);
+            }            
             // window.location.href = '/';
         }).catch((error) => {
+            setEmailError(error?.error);
             console.log(error);
         });
     }
@@ -38,6 +45,9 @@ const Signup = () => {
                     <div className="row">
                         <div className="input-field col s12">
                         <input placeholder="Email Id" id="email" name="email" type="text" className="validate" onChange={e => setEmail(e.target.value)}/>
+                        <div className="name error red-text">
+                            {emailError}
+                        </div>
                         <label htmlFor="email">email</label>
                         </div>       
                     </div>

@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
+import { URL } from '../../config';
 import { UserContext } from '../../UserContext';
 import {useParams} from 'react-router-dom';
 import io from 'socket.io-client';
 import Messages from './Messages';
+
 let socket;
  
 const Chat = () => {
-    const ENDPT = "localhost:5000";
+    const ENDPT = URL;
     const {user} = useContext(UserContext);
     const [message, setMessage] = useState(null);
     const [messages,setMessages] = useState([]);

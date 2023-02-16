@@ -1,15 +1,14 @@
-import React, {useContext} from 'react';
-import { UserContext } from '../../UserContext';
+import React from 'react';
+import { URL } from '../../config';
 import SignedIn from './SignedIn';
 import SignedOut from './SignedOut';
 
 
-const NavBar = ({setUserNull}) => {
-    const {user} = useContext(UserContext);   
+const NavBar = ({setUserNull,userData}) => {
     const logout = async (e) => {
         e.preventDefault();
         try{
-            const result = await fetch('http://localhost:5000/logout', {
+            const result = await fetch(URL +'logout', {
             credentials:'include'             
             });
             await result.json();         
@@ -18,7 +17,7 @@ const NavBar = ({setUserNull}) => {
             console.log(error);
         }
     }
-   const menu = user ? <SignedIn logout={logout}/> : <SignedOut />
+   const menu = userData ? <SignedIn logout={logout}/> : <SignedOut />
     return (
         <>
         <nav className='green'>

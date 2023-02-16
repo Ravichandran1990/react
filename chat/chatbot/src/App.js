@@ -1,7 +1,7 @@
  
 import './App.css';
 import React, { useState, useEffect } from 'react';
-
+import { URL } from './config';
 import {BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { UserContext } from './UserContext';
 import NavBar from './component/layout/NavBar'; 
@@ -14,7 +14,7 @@ import io from 'socket.io-client';
 function App() {
   const [user, setUser] = useState(null);
   const [socket, setSocket] = useState(null);
-  const ENDPT = "localhost:5000";    
+  const ENDPT = URL;    
     useEffect(() => {
         const socket = io(ENDPT);
         setSocket(socket);
@@ -27,7 +27,7 @@ function App() {
     useEffect(() => {
       const verifyUser = async () => {
         try {
-          const result =await fetch('http://localhost:5000/verifyuser', {
+          const result =await fetch(URL+'verifyuser', {
             credentials:'include',             
             //headers: {'Content-type': 'application/json'}
         })
@@ -48,7 +48,7 @@ function App() {
     
     <Router>
         <div className="App">
-          <NavBar setUserNull={setUserNull}/>
+          <NavBar setUserNull={setUserNull} userData={user}/>
           <UserContext.Provider value={{user, setUser, socket, setSocket}}>
              <Routes>
                 <Route exact path="/" element={<Home />} />

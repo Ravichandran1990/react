@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link,Navigate } from 'react-router-dom';
+import { URL } from '../../config';
 import { UserContext } from '../../UserContext';
 import RoomList from './RoomList';
 import io from 'socket.io-client';
@@ -9,7 +10,8 @@ const Home = () => {
     const {user} = useContext(UserContext);
     const [room, setRoom] = useState(null);
     const [rooms, setRooms] = useState([]);
-    const ENDPT = "localhost:5000";
+    const [errorRoom, setErrorRoom] = useState(null);
+    const ENDPT = URL;
     
     useEffect(() => {
         socket = io(ENDPT);
@@ -34,9 +36,12 @@ const Home = () => {
          
     const createRoom = (e) => {
         e.preventDefault();
-        socket.emit('createRoom', room);        
-        //rooms.push(room);
-        //console.log("room Name "+room);
+        const checkRoom = rooms.find((roomData) => roomData.name === room);
+        if(!checkRoom){
+            socket.emit('createRoom', room); 
+        }else {
+            setErrorRoom("Room already created create different room")
+        }       
         setRoom('');
     }
     if(!user) {
@@ -53,7 +58,10 @@ const Home = () => {
                             <form className="col s12">
                                 <div className="row">
                                     <div className="input-field col s12">
-                                    <input placeholder="Room" id="room" name="room" type="text" className="validate" onChange={e => setRoom(e.target.value)}/>
+                                    <input placeholder="Room" id="room" name="room" type="text" value={room ? room : ''} onKeyDown={e => setErrorRoom('')} className="validate" onChange={e => setRoom(e.target.value)}/>
+                                    <div className="name error red-text">
+                                       {errorRoom}
+                                    </div>
                                     <label htmlFor="room">Room Name</label>
                                     </div>       
                                 </div>
