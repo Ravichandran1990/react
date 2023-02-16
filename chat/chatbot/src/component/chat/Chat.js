@@ -14,11 +14,11 @@ const Chat = () => {
     const [message, setMessage] = useState(null);
     const [messages,setMessages] = useState([]);
     let {room_id} = useParams();
-     
+    const requestJoin = {room_id,user_id:user?._id,name:user?.name}; 
     useEffect(() => {
         socket = io(ENDPT);        
-        socket.emit('join', {room_id,user_id:user?._id,name:user?.name});
-    }, [room_id]);
+        socket.emit('join', requestJoin);
+    }, [requestJoin]);
 
     useEffect(() => {
         console.log("Ussse Effect for receve message To client fro server");
