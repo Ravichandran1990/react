@@ -15,16 +15,16 @@ const Home = () => {
     
     useEffect(() => {
         socket = io(ENDPT);
-        console.log(socket);
+        console.log("Home Socket Connetcion "+socket);
         return () => {
             socket.emit('disconnect');
-            socket.off();
+           socket.off();
         }
     }, [ENDPT]);
-     
+    
     useEffect(() => {
         socket.on('roomList', (list) => {
-            setRooms([...rooms,...list])
+            setRooms([...list])
         })
     }, [rooms])
     useEffect(() => {

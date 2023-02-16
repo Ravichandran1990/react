@@ -9,21 +9,21 @@ import Home from './component/home/Home';
 import Chat from './component/chat/Chat';
 import Login from './component/auth/Login';
 import Signup from './component/auth/Signup';
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 // = socketIO.connect('http://localhost:5000');
 function App() {
   const [user, setUser] = useState(null);
   const [socket, setSocket] = useState(null);
-  const ENDPT = URL;    
-    useEffect(() => {
-        const socket = io(ENDPT);
-        setSocket(socket);
-        console.log(socket);
-        return () => {
-            socket.emit('disconnect');
-            socket.off();
-        }
-    }, [ENDPT]);
+  // const ENDPT = URL;    
+    // useEffect(() => {
+    //     const socket = io(ENDPT);
+    //     setSocket(socket);
+    //     console.log("Disconnect socket "+socket);
+    //     return () => {
+    //         socket.emit('disconnect');
+    //         socket.off();
+    //     }
+    // }, [ENDPT]);
     useEffect(() => {
       const verifyUser = async () => {
         try {

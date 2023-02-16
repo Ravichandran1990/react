@@ -15,7 +15,14 @@ const Chat = () => {
     const [messages,setMessages] = useState([]);
     let {room_id} = useParams();
     const requestJoin = JSON.stringify({room_id,user_id:user?._id,name:user?.name});
-    socket = io(ENDPT); 
+    useEffect(() => {
+        socket = io(ENDPT);
+        console.log("Chat Socket Connetcion "+socket);
+        return () => {             
+            socket.emit('disconnect');
+           socket.off();
+        }
+    }, [ENDPT]);
     useEffect(() => { 
         const join = () => {
             socket.emit('join', requestJoin);

@@ -5,8 +5,6 @@ const Messages = ({messages}) => {
     const {user} = useContext(UserContext);
     const chatContainerRef = useRef();
     useEffect(() => {
-        console.log(chatContainerRef.current.clientHeight);
-        console.log(chatContainerRef.current.scrollHeight);
         if(chatContainerRef.current.scrollHeight > chatContainerRef.current.clientHeight) {
             chatContainerRef.current.scrollTo(0, (chatContainerRef.current.scrollHeight - 10));
         }
