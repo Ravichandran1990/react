@@ -14,10 +14,13 @@ const Chat = () => {
     const [message, setMessage] = useState(null);
     const [messages,setMessages] = useState([]);
     let {room_id} = useParams();
-    const requestJoin = {room_id,user_id:user?._id,name:user?.name};
+    const requestJoin = JSON.stringify({room_id,user_id:user?._id,name:user?.name});
     socket = io(ENDPT); 
-    useEffect(() => {                
-        socket.emit('join', requestJoin);
+    useEffect(() => { 
+        const join = () => {
+            socket.emit('join', requestJoin);
+        }               
+        join();
     }, [requestJoin]);
 
     useEffect(() => {
