@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { UserContext } from '../../UserContext';
-import {Navigate } from 'react-router-dom'
+import {Navigate, Link } from 'react-router-dom'
 import { URL } from '../../config';
 
 const Signup = () => {
@@ -57,7 +57,10 @@ const Signup = () => {
                         <label htmlFor="password">Password</label>
                         </div>       
                     </div>
-                    <button className="waves-effect waves-light btn" onClick={signupSubmit}>SignUp</button>                       
+                    <button className="waves-effect waves-light btn" onClick={signupSubmit}><i className="material-icons left">file_upload</i>SignUp</button> 
+                    <Link to={'/login'}>
+                        <button className="waves-effect waves-light btn" style={{ marginLeft:"3px"}} ><i className="material-icons left">login</i>Login</button>
+                    </Link>                     
                 </form>
             </div>    
         </div>

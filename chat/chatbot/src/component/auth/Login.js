@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { UserContext } from '../../UserContext';
 import {Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { URL } from '../../config';
 const Login = () => {
     const {user,setUser} = useContext(UserContext);
@@ -51,7 +52,10 @@ const Login = () => {
                         <label htmlFor="password">Password</label>
                         </div>       
                     </div>
-                    <button className="waves-effect waves-light btn" onClick={loginSubmit}>Login</button>                       
+                    <button className="waves-effect waves-light btn" onClick={loginSubmit}><i className="material-icons left">login</i>Login</button>
+                    <Link to={'/signup'}>
+                        <button className="waves-effect waves-light btn" style={{ marginLeft:"3px"}}><i className="material-icons left">file_upload</i>Signup</button>
+                    </Link>                       
                 </form>
             </div>    
         </div>
