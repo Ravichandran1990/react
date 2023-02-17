@@ -11,7 +11,7 @@ let socket;
  
 const Chat = () => {
     const ENDPT = URL;
-    const { transcript } = useSpeechRecognition();
+    const { transcript, resetTranscript } = useSpeechRecognition();
     const {user} = useContext(UserContext);
     const [message, setMessage] = useState(null);
     const [messages,setMessages] = useState([]);
@@ -45,7 +45,6 @@ const Chat = () => {
             return;
         }
         setMessage("Listening...");
-              
         SpeechRecognition.startListening({
             continuous: true,
         });
@@ -68,7 +67,8 @@ const Chat = () => {
     const stopSpeechChat = () => {            
         SpeechRecognition.stopListening();
         console.log(transcript);
-        sendEmitMessage(transcript);     
+        sendEmitMessage(transcript);
+        resetTranscript();    
     };
      
     if(!user) {
