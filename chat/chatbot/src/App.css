@@ -92,3 +92,11 @@
   box-shadow: 1px 1px 9px 3px #4caf50;
   padding-left: 17px;
 }
+
+.chatText {
+  position: relative;
+}
+.microPhone {
+  position: absolute;
+  right: 0;
+}

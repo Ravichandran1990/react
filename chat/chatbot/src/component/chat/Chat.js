@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
+import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import { URL } from '../../config';
 import { UserContext } from '../../UserContext';
-import {useParams} from 'react-router-dom';
+
 import io from 'socket.io-client';
 import Messages from './Messages';
 
@@ -10,6 +11,7 @@ let socket;
  
 const Chat = () => {
     const ENDPT = URL;
+    const { transcript } = useSpeechRecognition();
     const {user} = useContext(UserContext);
     const [message, setMessage] = useState(null);
     const [messages,setMessages] = useState([]);
@@ -37,35 +39,58 @@ const Chat = () => {
         })
     },[messages])
 
-    const sendMessage = (e) => {
-        e.preventDefault();
+    const startSpeechChat = () => {
+        if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
+            alert("Your browser not supported speech recognition!")
+            return;
+        }
+        setMessage("Listening...");
+              
+        SpeechRecognition.startListening({
+            continuous: true,
+        });
+    };
+
+    const sendEmitMessage = (message) => {
         if(message){
             socket.emit('sendmessage', message, room_id,user._id, () => {
                 setMessage('');
                 console.log("Call Back executed");
             })
-        }        
+        } 
     }
+
+    const sendMessage = (e) => {
+        e.preventDefault();
+        sendEmitMessage(message);       
+    }   
+
+    const stopSpeechChat = () => {            
+        SpeechRecognition.stopListening();
+        console.log(transcript);
+        sendEmitMessage(transcript);     
+    };
      
     if(!user) {
         return <Navigate to={'/login'} />
     }
     return (
         <div className='container'>
-                         
+                     
            <h4>Hello {user.name ? user.name : ''}</h4>
            {/* <pre>{JSON.stringify(messages, null, '\t')}</pre> */}
            <Messages messages={messages}/> 
-           <div className="row">
+           <div className="row chatText">
                 <form className="col s12">
                     <div className="row">
                         <div className="input-field col s12">
-                        <input placeholder="Chat" id="chat" name="chat" type="text" className="validate" value={message?message:''} onChange={e => setMessage(e.target.value)}/>
+                        <input placeholder="Chat" autoFocus id="chat" name="chat" type="text" className="validate" value={message?message:''} onChange={e => setMessage(e.target.value)}/>
                         <label htmlFor="chat">Chat</label>
                         </div>       
                     </div>
-                    <button className="waves-effect waves-light btn" onClick={sendMessage}>Submit</button>                       
+                    <button className="waves-effect waves-light btn" onClick={sendMessage}>Submit</button>                                          
                 </form>
+                <button className="microPhone waves-effect waves-light btn" onMouseDown={ startSpeechChat } onMouseUp={ stopSpeechChat }><i className="material-icons">mic_none</i></button> 
             </div>
            <Link to= {'/'} >
                 <button className="waves-effect waves-light btn">Go to Home</button>
