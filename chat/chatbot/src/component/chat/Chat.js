@@ -54,6 +54,7 @@ const Chat = () => {
         if(message){
             socket.emit('sendmessage', message, room_id,user._id, () => {
                 setMessage('');
+                resetTranscript();
                 console.log("Call Back executed");
             })
         } 
@@ -68,7 +69,7 @@ const Chat = () => {
         SpeechRecognition.stopListening();
         console.log(transcript);
         sendEmitMessage(transcript);
-        resetTranscript();    
+        
     };
      
     if(!user) {
