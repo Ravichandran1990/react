@@ -10,6 +10,7 @@ const Home = () => {
     const {user} = useContext(UserContext);
     const [room, setRoom] = useState(null);
     const [rooms, setRooms] = useState([]);
+     
     const [errorRoom, setErrorRoom] = useState(null);
     const ENDPT = URL;
     
@@ -49,6 +50,7 @@ const Home = () => {
     }
     return (
         <div>
+             
             <div className="row">
                 <div className="col s12 m6">
                     <div className="card blue-grey darken-1">

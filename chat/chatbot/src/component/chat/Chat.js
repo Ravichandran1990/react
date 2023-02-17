@@ -31,8 +31,8 @@ const Chat = () => {
     }, [requestJoin]);
 
     useEffect(() => {
-        console.log("Ussse Effect for receve message To client fro server");
         socket.on('message',(message) => {
+            console.log("Ussse Effect message received from server To client");
             setMessages([...messages,message]);
         })
     },[messages])
@@ -52,7 +52,7 @@ const Chat = () => {
     }
     return (
         <div className='container'>
-            {/* <div>{room_id}, {room_name}</div> */}
+                         
            <h4>Hello {user.name ? user.name : ''}</h4>
            {/* <pre>{JSON.stringify(messages, null, '\t')}</pre> */}
            <Messages messages={messages}/> 
