@@ -91,7 +91,7 @@ const Chat = () => {
                     </div>
                     <button className="waves-effect waves-light btn" onClick={sendMessage}>Submit</button>                                          
                 </form>
-                <button className="microPhone waves-effect waves-light btn" onMouseDown={ startSpeechChat } onMouseUp={ stopSpeechChat }><i className="material-icons">mic_none</i></button> 
+                <button className="microPhone waves-effect waves-light btn" onMouseDown={ startSpeechChat } onMouseUp={ stopSpeechChat } onTouchStart= {startSpeechChat} onTouchEnd={stopSpeechChat}><i className="material-icons">mic_none</i></button> 
             </div>
            <Link to= {'/'} >
                 <button className="waves-effect waves-light btn">Go to Home</button>
